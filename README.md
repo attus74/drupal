@@ -2,23 +2,80 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12.
 
-## Code scaffolding
+## A library for Angular-Drupal Communication
 
-Run `ng generate component component-name --project drupal` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project drupal`.
-> Note: Don't forget to add `--project drupal` or else it will be added to the default project in your `angular.json` file. 
+This modul has to be imported. 
+Environment (details see below) and a token service (Ionic Storage, Cookie Service, or something similar, custom services, too, are allowed), too, has to be imported and provided to Drupal. 
 
-## Build
+```ts
+import { DrupalModule } from '@attus/drupal';
 
-Run `ng build drupal` to build the project. The build artifacts will be stored in the `dist/` directory.
+import { IonicTokenService } from '@attus/ionic-storage';
+import { environment } from '../environments/environment';
 
-## Publishing
+@NgModule({
+  imports: [
+    DrupalModule,
+  ],
+  providers: [
+    {
+      provide: 'DRUPAL_TOKEN_SERVICE',
+      useClass: IonicTokenService,
+    },
+    {
+      provide: 'DRUPAL_CONFIG',
+      useValue: environment.drupal,
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
 
-After building your library with `ng build drupal`, go to the dist folder `cd dist/drupal` and run `npm publish`.
+Environment must have Drupal connection parameters:
+```ts
+export const environment = {
+  production: false,
+  drupal: {
+    url: 'https://example.com',
+    token_path: 'oauth/token',
+    client_id: 'abcdefgh-1234',
+    client_secret: '98754',
+    scope: 'scope1 scope2',
+  }
+};
+```
 
-## Running unit tests
+## Usage
 
-Run `ng test drupal` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```ts
 
-## Further help
+import {DrupalService} from '@attus/drupal';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+@Component({
+  template: '',
+})
+export class MyComponent implements OnInit {
+
+  data: MyData
+  userSubscription: Subscription
+
+  constructor(private drupal: DrupalService) { }
+
+  ngOnInit() {
+    // Status: 1 - Authenticated, 0 - In process, -1 - Not Authenticated
+    this.userSubscription = this.drupal.getUserLoginStatus().subscribe(status => {
+      if (status === 1) {
+        this.getMyData();
+      }
+    });
+  }
+
+  getMyData(id: string): Observable<MyData> {
+    const options = this.drupal.getHttpOptions();
+    const path: string = 'my/data/' + id;
+    return this.drupal.get(path, options);
+  }
+
+}
+```
