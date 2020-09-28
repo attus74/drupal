@@ -36,6 +36,23 @@ export class DrupalService {
     this.getToken(request);
   }
 
+  logout(): void {
+    this.userLoginStatus.next(-1);
+    this.authorization = null;
+    this.tokenService.deleteRefreshToken().then(() => {
+      console.info('Veraltetes Refresh Token wurde entfernt');
+    });
+  }
+
+  forgotPassword(username: string) {
+    const getUrl = window.location;
+    const baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];  
+    return this.post('user/api/forgot', {
+      username: username,
+      url: baseUrl,
+    });
+  }
+
   getUserLoginStatus(): Observable<number> {
     return this.userLoginStatus.asObservable();
   }
@@ -49,6 +66,14 @@ export class DrupalService {
     return this.http.get(this.drupalConfig.url + '/' + path, options).pipe(
       retry(3),
       timeout(8000),
+      catchError(this.formatErrors),
+    );
+  }
+
+  post(path: string, data: any, options?: DrupalHttpOptions): Observable<any> {
+    return this.http.post(this.drupalConfig.url + '/' + path, data, options).pipe(
+      retry(3),
+      timeout(30000),
       catchError(this.formatErrors),
     );
   }
