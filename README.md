@@ -1,6 +1,6 @@
 # Drupal
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12.
+[![GitHub release](https://img.shields.io/github/release/attus74/drupal.svg)](https://GitHub.com/attus74/drupal/releases/)
 
 ## A library for Angular-Drupal Communication
 
