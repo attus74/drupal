@@ -106,7 +106,7 @@ export class DrupalService {
     }
     this.http.post(this.drupalConfig.url + '/' + this.drupalConfig.token_path, formData).pipe(
       retry(3),
-      timeout(12000),
+      timeout(16000),
       catchError(error => {
         this.userLoginStatus.next(-1);
         this.authorization = null;
@@ -123,6 +123,13 @@ export class DrupalService {
       }, (response.expires_in - 30) * 1000);
       console.info('Access Token wurde erneuert');
       this.userLoginStatus.next(1);
+    });
+  }
+
+  restorePassword(token: string, newPassword: string) {
+    return this.post('user/api/restore', {
+      token: token,
+      password: newPassword
     });
   }
 
