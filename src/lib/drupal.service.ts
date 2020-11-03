@@ -21,7 +21,7 @@ export class DrupalService {
 
   initialize(): void {
     console.info('Drupal Service wurde initialisiert');
-    this.refreshToken();
+    return this.refreshToken();
   }
 
   login(username: string, password: string): void {
