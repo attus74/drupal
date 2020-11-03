@@ -1,6 +1,15 @@
 {
   "name": "@attus/drupal",
   "version": "10.2.0",
+  "description": "Drupal Service",
+  "homepage": "https://github.com/attus74/drupal",
+  "author": {
+    "name": "Attila Németh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/attus74/drupal"
+  },
   "peerDependencies": {
     "@angular/common": "^10.2",
     "@angular/core": "^10.2"
