@@ -77,5 +77,10 @@ export class MyComponent implements OnInit {
     return this.drupal.get(path, options);
   }
 
+  loginUser(username: string, password: string): void {
+    // There is no direct answer, but you can subscribe the result, see getUserLoginStatus()
+    this.drupal.login(username, password);
+  }
+
 }
 ```

@@ -1,14 +1,12 @@
 {
   "name": "@attus/drupal",
-  "version": "10.2.1",
+  "version": "10.2.2",
   "description": "Drupal Service",
   "homepage": "https://github.com/attus74/drupal",
-  "author": {
-    "name": "Attila Németh"
-  },
+  "author": "Attila Németh",
   "repository": {
     "type": "git",
-    "url": "https://github.com/attus74/drupal"
+    "url": "git+https://github.com/attus74/drupal.git"
   },
   "peerDependencies": {
     "@angular/common": "^10.2",
@@ -16,5 +14,17 @@
   },
   "dependencies": {
     "tslib": "^1.10.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/attus74/drupal/issues"
+  },
+  "main": "karma.conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Drupal",
+    "Angular"
+  ],
+  "license": "GPL-3.0"
 }

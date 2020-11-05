@@ -14,6 +14,10 @@ export class DrupalHttpOptions {
     this.headers = this.headers.set(name, value);
   }
 
+  setJsonApiHeaders(): void {
+    this.headers = this.headers.set('Content-Type', 'application/vnd.api+json');
+  }
+
   setParam(name: string, value: any): void {
     if (this.params === null) {
       this.params = new HttpParams();
