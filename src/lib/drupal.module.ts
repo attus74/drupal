@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { DrupalComponent } from './drupal.component';
 import { DrupalService } from './drupal.service';
 
-
 @NgModule({
   declarations: [DrupalComponent],
   imports: [
@@ -13,8 +12,10 @@ import { DrupalService } from './drupal.service';
     DrupalService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (drupal: DrupalService) => {
-        return () => drupal.initialize()
+      useFactory: function(drupal: DrupalService) {
+        return function() {
+          drupal.initialize();
+        }
       },
       deps: [DrupalService],
       multi: true

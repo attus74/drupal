@@ -21,7 +21,7 @@ export class DrupalService {
 
   async initialize(): Promise<any> {
     console.info('Drupal Service wurde initialisiert');
-    this.refreshToken();
+    return this.refreshToken();
   }
 
   login(username: string, password: string): void {
@@ -64,7 +64,7 @@ export class DrupalService {
 
   get(path: string, options: DrupalHttpOptions): Observable<any> {
     return this.http.get(this.drupalConfig.url + '/' + path, options).pipe(
-      retry(3),
+      retry(5),
       timeout(8000),
       catchError(this.formatErrors),
     );
@@ -74,6 +74,14 @@ export class DrupalService {
     return this.http.post(this.drupalConfig.url + '/' + path, data, options).pipe(
       retry(3),
       timeout(30000),
+      catchError(this.formatErrors),
+    );
+  }
+
+  patch(path: string, data: any, options?: DrupalHttpOptions): Observable<any> {
+    return this.http.patch(this.drupalConfig.url + '/' + path, data, options).pipe(
+      retry(3),
+      timeout(24000),
       catchError(this.formatErrors),
     );
   }

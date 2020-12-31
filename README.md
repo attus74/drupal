@@ -1,6 +1,6 @@
 # Drupal
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12.
+[![GitHub release](https://img.shields.io/github/release/attus74/drupal.svg)](https://GitHub.com/attus74/drupal/releases/)
 
 ## A library for Angular-Drupal Communication
 
@@ -75,6 +75,11 @@ export class MyComponent implements OnInit {
     const options = this.drupal.getHttpOptions();
     const path: string = 'my/data/' + id;
     return this.drupal.get(path, options);
+  }
+
+  loginUser(username: string, password: string): void {
+    // There is no direct answer, but you can subscribe the result, see getUserLoginStatus()
+    this.drupal.login(username, password);
   }
 
 }
