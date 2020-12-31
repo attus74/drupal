@@ -19,7 +19,7 @@ export class DrupalService {
               @Inject('DRUPAL_TOKEN_SERVICE') private tokenService: DrupalTokenService,
               @Inject('DRUPAL_CONFIG') private drupalConfig: DrupalConfig) { }
 
-  initialize(): void {
+  async initialize(): Promise<any> {
     console.info('Drupal Service wurde initialisiert');
     this.refreshToken();
   }
