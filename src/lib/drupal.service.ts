@@ -19,9 +19,9 @@ export class DrupalService {
               @Inject('DRUPAL_TOKEN_SERVICE') private tokenService: DrupalTokenService,
               @Inject('DRUPAL_CONFIG') private drupalConfig: DrupalConfig) { }
 
-  async initialize(): Promise<any> {
-    console.info('Drupal Service wurde initialisiert');
-    return this.refreshToken();
+  initialize() {
+    this.refreshToken();
+    return() => console.info('Drupal Service wurde initialisiert');
   }
 
   login(username: string, password: string): void {
@@ -81,6 +81,13 @@ export class DrupalService {
   patch(path: string, data: any, options?: DrupalHttpOptions): Observable<any> {
     return this.http.patch(this.drupalConfig.url + '/' + path, data, options).pipe(
       retry(3),
+      timeout(24000),
+      catchError(this.formatErrors),
+    );
+  }
+
+  delete(path: string, data: any, options?: DrupalHttpOptions): Observable<any> {
+    return this.http.delete(this.drupalConfig.url + '/' + path, options).pipe(
       timeout(24000),
       catchError(this.formatErrors),
     );

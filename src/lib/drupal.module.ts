@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DrupalComponent } from './drupal.component';
 import { DrupalService } from './drupal.service';
 
+// @dynamic
 @NgModule({
   declarations: [DrupalComponent],
   imports: [
