@@ -1,6 +1,6 @@
 # Drupal
 
-[![GitHub release](https://img.shields.io/github/release/attus74/drupal.svg)](https://GitHub.com/attus74/drupal/releases/)
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 ## A library for Angular-Drupal Communication
 
